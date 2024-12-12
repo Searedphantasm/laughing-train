@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="container my-font-color py-5">
+    <h1 class="my-css my-5">
+        Writer Detail
+    </h1>
+
+    <h2 class="my-css my-5">
+        Writer: {{ ctx.writer.first_name }} {{ ctx.writer.last_name }}
+    </h2>
+
+    <div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ ctx.writer.first_name }} {{ ctx.writer.last_name }}</h5>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        {% for book in ctx.books %}
+        <div class="col">
+            <div class="card">
+            <div class="card-header">
+                Books
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">{{ book.description }}</p>
+                <p>{{ book.publisher }}</p>
+                <p>{{ book.in_stock }} </p>
+                <a href="/rent" class="btn btn-primary">Rent the book.</a>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

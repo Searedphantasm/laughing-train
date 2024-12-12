@@ -34,7 +34,7 @@ class Customer(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str]
     last_name: Mapped[str]
-    phone: Mapped[str]
+    phone: Mapped[str] = mapped_column(unique=True)
     national_code: Mapped[str]
     address: Mapped[str]
 

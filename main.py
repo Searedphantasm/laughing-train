@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-
 from db import db
-from models import Book,BookWriter,CustomerBook,Customer,Writer
 
 
 

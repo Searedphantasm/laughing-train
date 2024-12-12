@@ -7,31 +7,11 @@
         Renting Book
     </h1>
     <form id="rent_book_form" novalidate>
-        <div class="input-group flex-nowrap">
-            <span class="input-group-text">First Name</span>
-            <input type="text" name="first_name" class="form-control" placeholder="Shakiba" aria-label="Username"
-                   aria-describedby="addon-wrapping">
-        </div>
-        <div class="input-group flex-nowrap my-3">
-            <span class="input-group-text">Last Name</span>
-            <input type="text" name="last_name" class="form-control" placeholder="Nori Azar" aria-label="Username"
-                   aria-describedby="addon-wrapping">
-        </div>
 
         <div class="input-group flex-nowrap my-3">
             <span class="input-group-text">Phone</span>
             <input type="text" name="phone" class="form-control" placeholder="09123456789" aria-label="Username"
                    aria-describedby="addon-wrapping">
-        </div>
-
-        <div class="input-group flex-nowrap my-3">
-            <span class="input-group-text">National Code</span>
-            <input type="text" name="national_code" class="form-control" placeholder="0063454787" aria-label="Username"
-                   aria-describedby="addon-wrapping">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Address</label>
-            <textarea name="address" class="form-control" rows="3"></textarea>
         </div>
 
         <h5>
@@ -49,12 +29,12 @@
         <div class="d-flex py-4">
             <div class="w-50">
                 <label class="form-label" for="start_date">Start Date</label>
-                <input class="form-control" name="start_date" id="start_date" type="date">
+                <input class="form-control" name="start_date" id="start_date" type="date" >
             </div>
 
             <div class="w-50">
                 <label class="form-label" for="end_date">End Date</label>
-                <input class="form-control" name="end_date" id="end_date" type="date">
+                <input class="form-control" name="end_date" id="end_date" type="date" >
             </div>
         </div>
 
@@ -62,9 +42,9 @@
             <button class="btn btn-primary me-2">
                 Submit Request
             </button>
-            <a href="/signed/rent" class="btn btn-success">
-                SignedUp before?
-            </a>
+            <a href="/rent" class="btn btn-success">
+        Didn't SignedUp before?
+    </a>
         </div>
     </form>
 
@@ -84,33 +64,29 @@
         const formData = new FormData(rentFormEle);
 
         const data = {
-            first_name: formData.get("first_name"),
-            last_name: formData.get("last_name"),
             phone: formData.get("phone"),
-            national_code: formData.get("national_code"),
-            address: formData.get("address"),
             book_id: formData.get("book_id"),
             start_date: formData.get("start_date"),
             end_date: formData.get("end_date"),
         }
 
         const options = {
-            method: "POST",
+            method:"POST",
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify(data)
         }
-        fetch("http://localhost:5000/api/rent", options)
+        fetch("http://localhost:5000/api/signed/rent", options)
             .then(res => {
                 if (res.status === 201) {
                     location.href = "/rented-books"
                 }if (res.status === 400) {
                     Swal.fire({
                         icon:"error",
-                        title:"Customer exists!",
-                        text:"A customer exists with the following number: " + data.phone,
-                        footer: '<a href="/signed/rent">SignedUp before?</a>'
+                        title:"Customer does not exist!",
+                        text:"A customer does not exist with the following number: " + data.phone,
+                        footer: '<a href="/rent">Didn\'t SignedUp before?</a>'
                     })
                 }
             }).catch(e => {
@@ -118,7 +94,7 @@
                 icon: "error",
                 title: "Oops...",
                 text: "Something went wrong!",
-                footer: '<a href="/rent">Try again?</a>'
+                footer: '<a href="/signed/rent">Try again?</a>'
             });
         })
 
