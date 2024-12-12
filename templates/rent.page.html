@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="container my-font-color py-5">
+    <h1 class="my-css my-5">
+        Renting Book
+    </h1>
+
+    <form id="rent_book_form" novalidate>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text">First Name</span>
+            <input type="text" name="first_name" class="form-control" placeholder="Shakiba" aria-label="Username"
+                   aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group flex-nowrap my-3">
+            <span class="input-group-text">Last Name</span>
+            <input type="text" name="last_name" class="form-control" placeholder="Nori Azar" aria-label="Username"
+                   aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="input-group flex-nowrap my-3">
+            <span class="input-group-text">Phone</span>
+            <input type="text" name="phone" class="form-control" placeholder="09123456789" aria-label="Username"
+                   aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="input-group flex-nowrap my-3">
+            <span class="input-group-text">National Code</span>
+            <input type="text" name="national_code" class="form-control" placeholder="0063454787" aria-label="Username"
+                   aria-describedby="addon-wrapping">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea name="address" class="form-control" rows="3"></textarea>
+        </div>
+
+        <h5>
+            Choose the book you want to rent!
+        </h5>
+        <select class="form-select" name="book_id">
+            <option selected>Select book</option>
+            {% for book in books %}
+            <option value="{{ book.id }}">
+                {{ book.title }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div class="d-flex py-4">
+            <div class="w-50">
+                <label class="form-label" for="start_date">Start Date</label>
+                <input class="form-control" name="start_date" id="start_date" type="date" >
+            </div>
+
+            <div class="w-50">
+                <label class="form-label" for="end_date">End Date</label>
+                <input class="form-control" name="end_date" id="end_date" type="date" >
+            </div>
+        </div>
+
+        <button class="btn btn-primary my-5">
+            Submit Request
+        </button>
+    </form>
+
+</section>
+
+{% endblock %}
+
+
+{% block jsScripts %}
+<script>
+    const rentFormEle = document.getElementById("rent_book_form");
+
+    rentFormEle.addEventListener("submit", function (evt) {
+        evt.preventDefault();
+
+        const formData = new FormData(rentFormEle);
+
+        const data = {
+            first_name: formData.get("first_name"),
+            last_name: formData.get("last_name"),
+            phone: formData.get("phone"),
+            national_code: formData.get("national_code"),
+            address: formData.get("address"),
+            book_id: formData.get("book_id"),
+            start_date: formData.get("start_date"),
+            end_date: formData.get("end_date"),
+        }
+
+        const options = {
+            method:"POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        fetch("http://localhost:5000/api/rent", options)
+            .then(res => {
+                if (res.status === 201) {
+                    location.href = "/rented-books"
+                }
+            }).catch(e => {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: '<a href="/rent">Try again?</a>'
+            });
+        })
+
+    })
+</script>
+{% endblock  %}

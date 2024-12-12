@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="container my-font-color py-5">
+    <h1 class="my-css my-5">
+        Book Detail
+    </h1>
+
+    <h2 class="my-css my-5">
+        Book: {{ book.title }}
+    </h2>
+
+    <div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ book.first_name }} {{ book.last_name }}</h5>
+            <p class="card-text">{{ book.description }}</p>
+            <a href="/rent" class="btn btn-primary">Rent the book.</a>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

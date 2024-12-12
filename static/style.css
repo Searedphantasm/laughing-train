@@ -1,0 +1,24 @@
+
+.my-font-color{
+    color: #56565b;
+}
+
+.my-carousel-container{
+    height: 50vh !important;
+    overflow: hidden;
+}
+
+.my-carousel-container img {
+    height: 50vh;
+    object-fit: cover;
+}
+
+.main-bg{
+    background-color: #e8d9c2;
+}
+
+.books-table{
+    box-shadow: 5px 5px 15px black;
+    border-radius: 10px;
+    overflow: hidden;
+}

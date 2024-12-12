@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container my-font-color py-5">
+    <h1 class="my-css my-5">
+        Writers!
+    </h1>
+
+    <table class="table bg-white books-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Book Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for writer in writers %}
+     <tr>
+      <th scope="row">1</th>
+      <td>
+          <a href="/writers/{{ writer.id }}" >
+              {{ writer.first_name  }} {{ writer.last_name }}
+          </a>
+      </td>
+      <td>
+          <span>
+              {{ writer.unique_book_count }}
+          </span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</section>
+
+{% endblock %}

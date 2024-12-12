@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="container my-font-color py-5">
+  <h1 class="my-css my-5">
+    Books List!
+  </h1>
+<table class="table bg-white books-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Writer</th>
+      <th scope="col">In Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+     <tr>
+      <th scope="row">1</th>
+      <td>
+          <a href="/books/{{ book.id }}" >
+              {{ book.title  }}
+          </a>
+      </td>
+      <td>{{ book.first_name }} {{ book.last_name }}</td>
+      <td>{{ book.in_stock }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+</section>
+
+{% endblock %}

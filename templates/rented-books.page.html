@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="container my-font-color py-5">
+  <h1 class="my-css my-5">
+    Rented Book List!
+  </h1>
+    <form class="my-4" id="search-rented-form" novalidate>
+        <label class="form-label">
+            Search by Phone number
+        </label>
+        <div class="d-flex">
+            <input class="form-control" name="search" type="text" placeholder="09121234567">
+        <button class="btn btn-success">
+            Search
+        </button>
+        </div>
+    </form>
+<table class="table bg-white books-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Customer FullName</th>
+      <th scope="col">Book Title</th>
+      <th scope="col">From </th>
+      <th scope="col">To </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rent in rented %}
+     <tr>
+      <th scope="row">1</th>
+      <td>
+          <span>
+              {{ rent.first_name  }} {{ rent.last_name  }}
+          </span>
+      </td>
+      <td>{{ rent.title }}</td>
+      <td>{{ rent.start_date }}</td>
+      <td>{{ rent.end_date }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+</section>
+
+{% endblock %}
+
+{% block jsScripts %}
+    <script>
+        const searchFormEle = document.getElementById("search-rented-form")
+
+        searchFormEle.addEventListener("submit",function (evt) {
+            evt.preventDefault();
+
+            const formData = new FormData(searchFormEle)
+
+            data = {
+                search: formData.get("search")
+            }
+
+            location.href = "/rented-books/" + data.search
+        })
+    </script>
+{% endblock %}
